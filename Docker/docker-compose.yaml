@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  chroma:
+    image: chromadb/chroma:latest  # Use the latest Chroma image
+    container_name: chroma-db
+    ports:
+      - "8000:8000"  # Expose the Chroma service on localhost:8000
+    environment:
+      - CHROMA_DB_PATH=/data  # Path to store Chroma data
+    volumes:
+      - chroma_data:/data  # Persistent storage for Chroma data
+    networks:
+      - chrome-net  # Connect to the external network
+
+
+networks:
+  chrome-net:
+    external: true
+
+volumes:
+  chroma_data:
+    driver: local
